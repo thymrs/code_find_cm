@@ -1,0 +1,97 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+/*
+  การต่อขาจอ LCD กับ UNO
+  VCC - 5V
+  GND - GND
+  SDA - A4
+  SCL - A5
+
+  การต่อขา Ultrasonic กับ UNO
+  VCC - 5V
+  GND - GND
+  Trig - 9
+  Echo - 10
+
+*/
+LiquidCrystal_I2C lcd(0x27, 16, 2);  // ตั้งค่า I2C address ของ LCD
+const int trigPin = 9;
+const int echoPin = 10;
+long duration;
+int distance;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  lcd.begin(16, 2); // ใช้ 16x2 จอ LCD
+  lcd.backlight();  // เปิดไฟพื้นหลัง
+  lcd.clear();      // เคลียร์หน้าจอ
+  lcd.setCursor(0, 0);
+  lcd.print("Distance (cm):");
+}
+
+void loop() {
+
+  digitalWrite(trigPin, LOW); // เริ่มอ่านค่าระยะทางจาก Ultrasonic
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration * 0.034 / 2; // จบการอ่านค่า ได้ระยะทางมาเป็น cm
+
+
+  lcd.setCursor(0, 1);
+  lcd.print(distance);
+  lcd.print(" cm    ");
+  delay(500);
+}
+
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+/*
+  การต่อขาจอ LCD กับ UNO
+  VCC - 5V
+  GND - GND
+  SDA - A4
+  SCL - A5
+
+  การต่อขา Ultrasonic กับ UNO
+  VCC - 5V
+  GND - GND
+  Trig - 9
+  Echo - 10
+
+*/
+LiquidCrystal_I2C lcd(0x27, 16, 2);  // ตั้งค่า I2C address ของ LCD
+const int trigPin = 9;
+const int echoPin = 10;
+long duration;
+int distance;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  lcd.begin(16, 2); // ใช้ 16x2 จอ LCD
+  lcd.backlight();  // เปิดไฟพื้นหลัง
+  lcd.clear();      // เคลียร์หน้าจอ
+  lcd.setCursor(0, 0);
+  lcd.print("Distance (cm):");
+}
+
+void loop() {
+
+  digitalWrite(trigPin, LOW); // เริ่มอ่านค่าระยะทางจาก Ultrasonic
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration * 0.034 / 2; // จบการอ่านค่า ได้ระยะทางมาเป็น cm
+
+
+  lcd.setCursor(0, 1);
+  lcd.print(distance);
+  lcd.print(" cm    ");
+  delay(500);
+}
